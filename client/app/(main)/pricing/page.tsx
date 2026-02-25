@@ -74,55 +74,94 @@ export default function PricingPage() {
             Choose Your Plan
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Unlock the full potential of PrivGPT Studio. Switch between cloud and local AI models seamlessly with a plan that fits you.
+            Unlock the full potential of PrivGPT Studio. Switch between cloud and
+            local AI models seamlessly with a plan that fits you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-          {plans.map((plan, index) => (
-            <Card 
-              key={plan.name} 
+        {/* Extra top padding so the badge on the popular card has room */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center pt-6">
+          {plans.map((plan) => (
+            <Card
+              key={plan.name}
               className={`
-                relative flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2
-                ${plan.popular 
-                  ? 'border-primary shadow-md md:-mt-8 md:mb-8 z-10 scale-105' 
-                  : 'hover:border-primary/50'}
+                relative flex flex-col transition-all duration-300
+                ${plan.popular
+                  ? "border-2 border-primary shadow-xl ring-2 ring-primary/30 md:-mt-6 md:mb-6 z-10 hover:shadow-2xl hover:-translate-y-2"
+                  : "hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
+                }
               `}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-0 right-0 flex justify-center">
-                  <Badge className="bg-primary text-primary-foreground hover:bg-primary px-3 py-1">
-                    Most Popular
+                  <Badge className="bg-primary text-primary-foreground hover:bg-primary px-4 py-1 text-sm font-semibold shadow-md">
+                    ⭐ Most Popular
                   </Badge>
                 </div>
               )}
-              <CardHeader>
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
+
+              <CardHeader className={plan.popular ? "p-7 pt-9" : "p-6"}>
+                <CardTitle className={plan.popular ? "text-3xl font-bold" : "text-2xl"}>
+                  {plan.name}
+                </CardTitle>
                 <CardDescription>{plan.description}</CardDescription>
               </CardHeader>
-              <CardContent className="flex-grow">
+
+              <CardContent className={`flex-grow ${plan.popular ? "p-7" : "p-6"}`}>
                 <div className="mb-6 flex items-baseline">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  {plan.period && <span className="text-muted-foreground ml-1">{plan.period}</span>}
+                  <span className={plan.popular ? "text-5xl font-bold" : "text-4xl font-bold"}>
+                    {plan.price}
+                  </span>
+                  {plan.period && (
+                    <span className="text-muted-foreground ml-1">{plan.period}</span>
+                  )}
                 </div>
                 <ul className="space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
-                      <div className="bg-primary/10 rounded-full p-1">
-                        <Check className="w-3 h-3 text-primary" />
+                      <div className="bg-primary/10 rounded-full p-1 flex-shrink-0">
+                        <Check className="w-3 h-3 text-primary flex-shrink-0" />
                       </div>
                       <span className="text-sm text-muted-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter className="mt-auto">
-                <Button className="w-full" variant={plan.variant} size="lg">
+
+              <CardFooter className={`mt-auto ${plan.popular ? "p-7 pt-4" : "p-6"}`}>
+                <Button
+                  className="w-full"
+                  variant={plan.variant}
+                  size="lg"
+                >
                   {plan.cta}
                 </Button>
               </CardFooter>
             </Card>
           ))}
+        </div>
+
+        {/* Trust strip */}
+        <div className="mt-16 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+          {["No credit card required", "Cancel anytime", "Instant activation"].map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-2 hover:text-primary transition-all duration-200 hover:-translate-y-1"
+            >
+              <Check className="w-4 h-4 text-primary flex-shrink-0" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-12 text-center">
+          <p className="text-muted-foreground text-sm">
+            Need a custom plan?{" "}
+            <a href="/contact" className="text-primary underline underline-offset-4 hover:text-primary/80">
+              Contact us
+            </a>
+          </p>
         </div>
       </div>
     </div>

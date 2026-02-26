@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function PricingPage() {
@@ -94,8 +94,8 @@ export default function PricingPage() {
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-0 right-0 flex justify-center">
-                  <Badge className="bg-primary text-primary-foreground hover:bg-primary px-4 py-1 text-sm font-semibold shadow-md">
-                    ⭐ Most Popular
+                  <Badge className="bg-primary text-primary-foreground hover:bg-primary px-4 py-1 text-sm font-semibold shadow-md flex items-center gap-1">
+                    <Star className="w-3 h-3 fill-current" /> Most Popular
                   </Badge>
                 </div>
               )}

@@ -80,60 +80,57 @@ export default function PricingPage() {
         </div>
 
         {/* Extra top padding so the badge on the popular card has room */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch pt-10">
           {plans.map((plan) => (
-            <div key={plan.name} className={`relative flex flex-col ${plan.popular ? "" : "md:py-8"}`}>
-              {plan.popular && (
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-[2rem] blur-xl -z-10 transform scale-95" />
-              )}
+            <div key={plan.name} className={`h-full ${plan.popular ? "" : "md:py-6"}`}>
               <Card
                 className={`
-                  relative flex flex-col flex-1 transition-all duration-500 rounded-2xl
+                  relative flex flex-col h-full transition-all duration-300
                   ${plan.popular
-                    ? "border-2 border-primary shadow-2xl shadow-primary/20 z-10 hover:shadow-primary/40 hover:-translate-y-2 bg-card"
-                    : "border border-border/50 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50 bg-card/50 backdrop-blur-sm"
+                    ? "border-2 border-primary shadow-xl ring-2 ring-primary/30 z-10 hover:shadow-2xl hover:-translate-y-2"
+                    : "hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                   }
                 `}
               >
                 {plan.popular && (
-                  <div className="absolute -top-5 left-0 right-0 flex justify-center z-20">
-                    <Badge className="bg-gradient-to-r from-primary to-blue-600 text-primary-foreground border-none px-5 py-1.5 text-sm font-bold shadow-lg flex items-center gap-1.5 rounded-full uppercase tracking-wider">
-                      <Star className="w-4 h-4 fill-current" /> Most Popular
+                  <div className="absolute -top-4 left-0 right-0 flex justify-center">
+                    <Badge className="bg-primary text-primary-foreground hover:bg-primary px-4 py-1 text-sm font-semibold shadow-md flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-current" /> Most Popular
                     </Badge>
                   </div>
                 )}
 
-                <CardHeader className={plan.popular ? "p-8 pb-4" : "p-6 pb-4"}>
-                  <CardTitle className={plan.popular ? "text-3xl font-extrabold text-foreground" : "text-2xl font-bold"}>
+                <CardHeader className={plan.popular ? "p-7 pt-9" : "p-6"}>
+                  <CardTitle className={plan.popular ? "text-3xl font-bold" : "text-2xl"}>
                     {plan.name}
                   </CardTitle>
-                  <CardDescription className="font-medium text-muted-foreground/80 mt-2">{plan.description}</CardDescription>
+                  <CardDescription>{plan.description}</CardDescription>
                 </CardHeader>
 
-                <CardContent className={`flex-1 ${plan.popular ? "p-8 pt-2" : "p-6 pt-2"}`}>
-                  <div className="mb-8 flex items-baseline">
-                    <span className={plan.popular ? "text-6xl font-extrabold" : "text-5xl font-bold"}>
+                <CardContent className={`flex-grow ${plan.popular ? "p-7" : "p-6"}`}>
+                  <div className="mb-6 flex items-baseline">
+                    <span className={plan.popular ? "text-5xl font-bold" : "text-4xl font-bold"}>
                       {plan.price}
                     </span>
                     {plan.period && (
-                      <span className="text-lg text-muted-foreground ml-2 font-medium">{plan.period}</span>
+                      <span className="text-muted-foreground ml-1">{plan.period}</span>
                     )}
                   </div>
-                  <ul className="space-y-4">
+                  <ul className="space-y-3">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <div className={`rounded-full p-1 mt-0.5 flex-shrink-0 ${plan.popular ? "bg-primary text-primary-foreground shadow-sm" : "bg-primary/10 text-primary"}`}>
-                          <Check className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={3} />
+                      <li key={feature} className="flex items-center gap-2">
+                        <div className="bg-primary/10 rounded-full p-1 flex-shrink-0">
+                          <Check className="w-3 h-3 text-primary flex-shrink-0" />
                         </div>
-                        <span className="text-sm font-medium text-foreground/80">{feature}</span>
+                        <span className="text-sm text-muted-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
 
-                <CardFooter className={`mt-auto ${plan.popular ? "p-8 pt-4" : "p-6 pt-4"}`}>
+                <CardFooter className={`mt-auto ${plan.popular ? "p-7 pt-4" : "p-6"}`}>
                   <Button
-                    className={`w-full rounded-xl font-bold text-md h-12 transition-all duration-300 ${plan.popular ? "shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40" : ""}`}
+                    className="w-full"
                     variant={plan.variant}
                     size="lg"
                   >
